@@ -1,0 +1,44 @@
+#include <iostream>
+
+using namespace std;
+
+struct Date {
+    int hours = 0;
+    int minutes = 0;
+};
+
+int main() {
+    Date startTime, endTime, duration;
+
+    cout << "Enter start time (hours and minutes, e.g. 12 58): ";
+    cin >> startTime.hours >> startTime.minutes;
+
+    cout << "Enter end time (hours and minutes, e.g. 13 3): ";
+    cin >> endTime.hours >> endTime.minutes;
+
+    if (startTime.hours < 0 || startTime.hours >= 24 ||
+        startTime.minutes < 0 || startTime.minutes >= 60 ||
+        endTime.hours < 0 || endTime.hours >= 24 ||
+        endTime.minutes < 0 || endTime.minutes >= 60) {
+        cout << "Error: Invalid time values (hours must be 0..23, minutes 0..59)." << endl;
+        return 1;
+    }
+
+    int startTotal = startTime.hours * 60 + startTime.minutes;
+    int endTotal = endTime.hours * 60 + endTime.minutes;
+
+    int diffMinutes = endTotal - startTotal;
+    if (diffMinutes < 0) {
+        diffMinutes += 24 * 60; // перехід через північ
+    }
+
+    duration.hours = diffMinutes / 60;
+    duration.minutes = diffMinutes % 60;
+
+    cout << duration.hours << ":" << duration.minutes << endl;
+
+    cout << "Press Enter to exit...";
+    cin.ignore();
+    cin.get();
+    return 0;
+}
